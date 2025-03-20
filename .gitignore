@@ -1,0 +1,6 @@
+# 機密ファイル
+.env
+credentials.json
+
+# Mac特有の無駄なファイルを無視
+.DS_Store

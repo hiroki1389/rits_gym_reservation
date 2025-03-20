@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  rits-gym-reservation-bot:
+    image: rits-gym-reservation-bot-image
+    container_name: rits-gym-reservation-bot
+    build: .
+    volumes:
+      - ./reservation_bot.py:/app/reservation_bot.py 
+      - ./requirements.txt:/app/requirements.txt
+    environment:
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+    command: python /app/reservation_bot.py
+    ports:
+      - "5002:5000"
+    tty: true
