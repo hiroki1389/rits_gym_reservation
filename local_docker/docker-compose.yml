@@ -8,10 +8,7 @@ services:
     build: .
     volumes:
       - .:/app
-    environment:
-      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
-    # command: python3 /app/reservation_bot.py
-    # デバッグ中は"docker container exec -it rits-gym-reservation-bot bash"で行く
+    # command: python3 /app/reservation_bot.py # デバッグ中は"docker container exec -it rits-gym-reservation-bot bash"で行く
     ports:
       - "5002:5000"
     tty: true

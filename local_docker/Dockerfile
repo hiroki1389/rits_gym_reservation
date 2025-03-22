@@ -1,6 +1,9 @@
 # 基本となるイメージ
 FROM selenium/standalone-chrome-debug:3
 
+# タイムゾーン設定
+ENV TZ=Asia/Tokyo
+
 # rootユーザーに切り替える
 USER root
 

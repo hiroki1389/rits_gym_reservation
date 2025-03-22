@@ -32,6 +32,7 @@ SCOPE = [
 # Google Sheetsの認証
 CREDENTIALS_FILE = "./credentials.json"
 credentials = Credentials.from_service_account_file(CREDENTIALS_FILE, scopes=SCOPE)
+print(credentials)
 gc = gspread.authorize(credentials)
 sh = gc.open_by_key(USERS_SHEET_ID)
 users = sh.worksheet("Users")
@@ -192,6 +193,7 @@ async def reserve(interaction: discord.Interaction):
             index = int(select_menu_day.values[0])
             day_candidates[index].click()
             date = day_candidates[index].find_elements(By.TAG_NAME,'a')[0].get_attribute('id').replace('_td_cls', '').replace('-', '/')
+            await interaction.user.send(f"あなたが選択したオプションは: {date} です")
 
             # 日付選択からHTMlが動的に変わるから，時刻一覧が表示されるまで最大10秒待つ
             wait_day = WebDriverWait(driver, 10)
@@ -238,6 +240,7 @@ async def reserve(interaction: discord.Interaction):
                 for part in text_lines:
                     if '～' in part:
                         time = part
+                await interaction.user.send(f"あなたが選択したオプションは: {time} です")
 
                 # 時刻選択からHTMlが動的に変わるから，日時確認画面が表示されるまで最大10秒待つ
                 wait_time = WebDriverWait(driver, 10)
@@ -285,7 +288,7 @@ async def reserve(interaction: discord.Interaction):
 
                     # 予約完了出力
                     reservations.append_row([str(user_id), date, time])
-                    message = f"{date} {time} の予約を追加しました！"
+                    message = f"{date} {time} の予約を追加しました！（嘘）"
                 except TimeoutException:
                     message = 'エラー：予約完了画面が表示されませんでした．再度試してください'
 
@@ -326,6 +329,7 @@ async def reserve(interaction: discord.Interaction):
 
             await interaction.response.defer(thinking=True)
             month_choice = str(select_menu_month.values[0])  # 選ばれた予約
+            await interaction.user.send(f"あなたが選択したオプションは: {month_choice} です")
             await process_reservation(interaction, month_choice, driver)
 
         # セレクトメニューをビューに追加
