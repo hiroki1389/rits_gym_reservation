@@ -2,5 +2,8 @@
 .env
 credentials.json
 
+# 試行錯誤してるフォルダ
+try_and_error
+
 # Mac特有の無駄なファイルを無視
 .DS_Store

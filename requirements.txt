@@ -1,8 +1,10 @@
-python-dotenv
-discord.py
+python-dotenv==0.21.1
+discord.py==2.0.0
 
-gspread
-google-auth
-google-auth-oauthlib
-google-auth-httplib2
-google-api-python-client
+selenium==4.9.0
+
+gspread==5.7.1
+google-auth==2.17.0
+google-auth-oauthlib==0.4.6
+google-auth-httplib2==0.1.0
+google-api-python-client==2.62.0

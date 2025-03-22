@@ -1,8 +1,16 @@
 # 基本となるイメージ
-FROM python:3.9-slim
+FROM selenium/standalone-chrome-debug:3
+
+# rootユーザーに切り替える
+USER root
 
 # 作業ディレクトリの設定
 WORKDIR /app
+
+# 必要なシステムパッケージをインストール
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
 
 # アプリケーションのコピー
 COPY . /app/
@@ -11,4 +19,4 @@ COPY . /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ボットを実行するために必要なコマンドを指定
-CMD ["python", "reservation_bot.py"]
+# CMD ["python3", "reservation_bot.py"]

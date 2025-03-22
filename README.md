@@ -69,4 +69,7 @@ cd workSpace/rits_gym_reservation
 docker-compose up --build
 ```
 
-3.終了時は `Ctrl + C` で強制終了
+3. 終了時は `Ctrl + C` で強制終了
+
+# 5. bot利用方法
+<!-- あとで追記する（コマンドの使い方とか） -->
