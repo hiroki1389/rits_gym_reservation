@@ -1,6 +1,7 @@
 import os
 import time
 from datetime import datetime, timedelta
+import pytz
 import shutil
 
 import discord
@@ -19,6 +20,8 @@ import undetected_chromedriver as uc
 
 import gspread
 from google.oauth2.service_account import Credentials
+
+from server import keep_alive
 
 # Secretsから環境変数を取得
 project_id = os.environ["GOOGLE_PROJECT_ID"]
@@ -158,7 +161,9 @@ async def reserve(interaction: discord.Interaction):
     select_campus.select_by_value(campus_num)
 
     # 今日の日付および年，月，7日後の日付を取得
-    today = datetime.today().date()
+    tokyo = pytz.timezone('Asia/Tokyo')
+    today = datetime.now(tokyo).date()
+    print(datetime.now(tokyo))
     current_month = today.month
     current_year = today.year
     seven_days_later = today + timedelta(days=7)
@@ -383,6 +388,8 @@ async def on_ready():
     except Exception as e:
         print(f"コマンド同期時にエラーが発生しました: {e}")
 
+# Webサーバの起動
+keep_alive()
 
 # ボットを起動
 DISCORD_BOT_TOKEN = os.environ["DISCORD_BOT_TOKEN"]

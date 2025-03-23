@@ -1,5 +1,3 @@
-const replURK = "your_replit_url" // ここにreplitのURLを代入する
-
 const keepRepl = () => {
   const replURL = PropertiesService.getScriptProperties().getProperty('replURL')
   const data = {}
