@@ -275,14 +275,14 @@ async def reserve(interaction: discord.Interaction):
                         time = part
                 await interaction.user.send(f"あなたが選択したオプションは: {time} です")
 
-                # 時刻選択からHTMlが動的に変わるから，日時確認画面が表示されるまで最大10秒待つ
+                # 時刻選択からHTMlが動的に変わるから，日時kakunin画面が表示されるまで最大10秒待つ
                 wait_time = WebDriverWait(driver, 10)
                 wait_time.until(EC.presence_of_element_located((By.ID, 'rsvsltform_id')))
 
-                #予約日時の確認（”次へ”ボタンはJavaScriptだからこれを実行する）
+                #予約日時のkakunin（”次へ”ボタンはJavaScriptだからこれを実行する）
                 driver.execute_script('javascript:rsv.setSelectedRsvSlot(1);')
 
-                # 確認選択からHTMlが動的に変わるから，予約フォームが表示されるまで最大10秒待つ
+                # kakunin選択からHTMlが動的に変わるから，予約フォームが表示されるまで最大10秒待つ
                 wait_form = WebDriverWait(driver, 10)
                 wait_form.until(EC.presence_of_element_located((By.XPATH, '/html/body/form/div/div/div/div/div[4]/div/div[1]')))
 
@@ -305,23 +305,21 @@ async def reserve(interaction: discord.Interaction):
                     index += 1
                 driver.find_element(By.NAME, 'do_rsv').click()
 
-                # フォーム入力からHTMlが動的に変わるから，確認画面が表示されるまで最大10秒待つ
+                # フォーム入力からHTMlが動的に変わるから，kakunin画面が表示されるまで最大10秒待つ
                 wait_confirm = WebDriverWait(driver, 10)
-                print("ここからが上手くいかない")
-                # wait_confirm.until(EC.element_to_be_clickable((By.XPATH, '//button[@id="ebtn_id"]')))
-                print("いけた！")
+                wait_confirm.until(EC.element_to_be_clickable((By.XPATH, '//button[@id="ebtn_id"]')))
 
-                # # 確認ボタンを自動的に押す
-                # driver.find_element(By.XPATH, '/html/body/form/div/div/div/div/div[3]/button').click()
+                # kakuninボタンを自動的に押す
+                driver.find_element(By.XPATH, '/html/body/form/div/div/div/div/div[3]/button').click()
 
                 try:
                     # 予約送信からHTMlが動的に変わるから，予約完了画面が表示されるまで最大20秒待つ
-                    # wait_final = WebDriverWait(driver, 20)
-                    # wait_final.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div[1]/div[1]')))
+                    wait_final = WebDriverWait(driver, 20)
+                    wait_final.until(EC.presence_of_element_located((By.XPATH, '/html/body/div[3]/div[1]/div[1]')))
 
                     # 予約完了出力
                     reservations.append_row([str(user_id), date, time])
-                    message = f"{date} {time} の予約を追加しました！（嘘）"
+                    message = f"{date} {time} の予約を追加しました！"
                 except TimeoutException:
                     message = 'エラー：予約完了画面が表示されませんでした．再度試してください'
 
