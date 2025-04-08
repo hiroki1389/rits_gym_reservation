@@ -22,4 +22,4 @@ COPY . /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # ボットを実行するために必要なコマンドを指定
-# CMD ["python3", "reservation_bot.py"]
+CMD ["python3", "reservation_bot.py"]
